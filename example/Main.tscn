@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://djoxh6ctxf62a"]
+
+[ext_resource type="Texture2D" uid="uid://5n8nra2sebrj" path="res://example/grass.png" id="1_4vtsl"]
+[ext_resource type="PackedScene" uid="uid://bjatccv0v63bi" path="res://Player.tscn" id="2_hqd20"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i12p3"]
+albedo_texture = ExtResource("1_4vtsl")
+uv1_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pt4u5"]
+material = SubResource("StandardMaterial3D_i12p3")
+size = Vector2(20, 20)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1ui6t"]
+points = PackedVector3Array(10.1548, 0.158668, 10.1548, -10.1548, -0.158668, -10.1548, -10.1548, 0.158668, -10.1548, 10.1548, -0.158668, -10.1548, -10.1548, -0.158668, 10.1548, -10.1548, 0.158668, 10.1548, 10.1548, 0.158668, -10.1548, 10.1548, -0.158668, 10.1548)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="Floor" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("PlaneMesh_pt4u5")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_1ui6t")
+
+[node name="Player" parent="." instance=ExtResource("2_hqd20")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.05643, 0)
